@@ -33,6 +33,41 @@ responses unprompted. This suggests that they have been trained on vast amounts 
 Markdown-formatted text, and understand it well. As a side benefit, Markdown conventions
 are also highly token-efficient.
 
+## Convert to markdown scripts
+
+This repository includes a small wrapper for converting local files into `.md`
+files:
+
+```bash
+./cli.sh path/to/file.pdf
+./cli.sh -d path/to/directory
+```
+
+The wrapper writes converted files next to the source file with a `.md`
+extension. Use `--overwrite` to replace an existing Markdown output file, and
+`--no-recursive` with `-d/--directory` to convert only files directly inside a
+directory.
+
+Text files are handled specially. A `.txt` file is accepted only when it already
+looks like Markdown by containing both `# ` and `## `. Valid `.txt` files are
+copied as Markdown with the extension changed to `.md`; otherwise the script
+exits with an error.
+
+The wrapper also supports stdin and writes converted Markdown to stdout:
+
+```bash
+cat file.md | ./cli.sh
+cat file.pdf | ./cli.sh
+cat file.docx | ./cli.sh
+cat file.xlsx | ./cli.sh
+cat file.xls | ./cli.sh
+```
+
+For stdin, Markdown text is validated with the same `# ` and `## ` check.
+Binary stdin is detected as PDF, DOCX, XLSX, or XLS and converted through the
+MarkItDown CLI. Legacy `.doc` input is detected but rejected because this setup
+supports `.docx` Word files.
+
 ## Prerequisites
 MarkItDown requires Python 3.10 or higher. It is recommended to use a virtual environment to avoid dependency conflicts.
 
