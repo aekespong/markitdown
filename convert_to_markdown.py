@@ -205,9 +205,9 @@ def parse_args() -> argparse.Namespace:
         help="Directory containing files to convert",
     )
     parser.add_argument(
-        "--no-recursive",
+        "--recursive",
         action="store_true",
-        help="Only convert files directly inside the directory",
+        help="Convert files in subdirectories when using -d/--directory",
     )
     parser.add_argument(
         "--overwrite",
@@ -231,7 +231,7 @@ def main() -> int:
             print(f"error: not a directory: {directory}", file=sys.stderr)
             return 2
 
-        input_files = iter_input_files(directory, recursive=not args.no_recursive)
+        input_files = iter_input_files(directory, recursive=args.recursive)
         if not input_files:
             print(f"no files to convert in: {directory}")
             return 0

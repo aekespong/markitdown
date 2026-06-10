@@ -41,12 +41,13 @@ files:
 ```bash
 ./cli.sh path/to/file.pdf
 ./cli.sh -d path/to/directory
+./cli.sh -d path/to/directory --recursive
 ```
 
 The wrapper writes converted files next to the source file with a `.md`
-extension. Use `--overwrite` to replace an existing Markdown output file, and
-`--no-recursive` with `-d/--directory` to convert only files directly inside a
-directory.
+extension. Directory conversion only scans files directly inside the selected
+directory by default. Use `--recursive` with `-d/--directory` to include
+subdirectories, and `--overwrite` to replace an existing Markdown output file.
 
 Text files are handled specially. A `.txt` file is accepted only when it already
 looks like Markdown by containing both `# ` and `## `. Valid `.txt` files are
